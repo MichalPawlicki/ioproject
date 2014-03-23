@@ -1,6 +1,6 @@
 __author__ = 'michal'
 from django.conf.urls import patterns, url
-from gameintelligence import views
+from intelapp import views
 
 urlpatterns = patterns(
     '',

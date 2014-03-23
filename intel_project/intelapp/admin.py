@@ -1,5 +1,5 @@
 from django.contrib import admin
-import gameintelligence.models as models
+import intelapp.models as models
 
 # Register your models here.
 
