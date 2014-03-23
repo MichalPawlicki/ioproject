@@ -1,0 +1,9 @@
+__author__ = 'michal'
+
+
+ENGINE = 'django.db.backends.postgresql_psycopg2'
+NAME = <database name>
+HOST = '127.0.0.1'
+PORT = '5432'
+USER = <database user name>
+PASSWORD = <database user password>

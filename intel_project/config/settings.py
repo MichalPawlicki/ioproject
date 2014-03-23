@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -59,15 +58,16 @@ WSGI_APPLICATION = 'intel_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+import dbsettings
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ioproject_db',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'USER': 'ioclient',
-        'PASSWORD': 'ioclient'
+        'ENGINE': dbsettings.ENGINE,
+        'NAME': dbsettings.NAME,
+        'HOST': dbsettings.HOST,
+        'PORT': dbsettings.PORT,
+        'USER': dbsettings.USER,
+        'PASSWORD': dbsettings.PASSWORD
     }
 }
 
