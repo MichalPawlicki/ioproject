@@ -13,6 +13,8 @@ class User(models.Model):
     password = models.CharField(max_length=64, blank=False)
     email = models.EmailField(max_length=128, unique=True, blank=False)
     device_id = models.CharField(max_length=16, null=True)
+    confirmed = models.BooleanField(default=False, null=False)
+    confirmation_code = models.CharField(max_length=128)
 
 
 class FoeGroup(models.Model):
