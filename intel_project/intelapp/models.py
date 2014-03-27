@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -7,13 +8,10 @@ class UserGroup(models.Model):
     name = models.CharField(max_length=256, unique=True, blank=False)
 
 
-class User(models.Model):
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
     group = models.ForeignKey(UserGroup)
-    login = models.CharField(max_length=64, unique=True, blank=False)
-    password = models.CharField(max_length=64, blank=False)
-    email = models.EmailField(max_length=128, unique=True, blank=False)
     device_id = models.CharField(max_length=16, null=True)
-    confirmed = models.BooleanField(default=False, null=False)
     confirmation_code = models.CharField(max_length=128)
 
 
@@ -28,4 +26,4 @@ class FoeInfo(models.Model):
     level = models.IntegerField()
     strength = models.FloatField()
     submission_time = models.DateTimeField()
-    submitted_by = models.ForeignKey(User)
+    submitted_by = models.ForeignKey(UserProfile)
