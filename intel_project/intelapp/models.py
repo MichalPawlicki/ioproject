@@ -1,8 +1,10 @@
 import hashlib
+from django.core.mail import send_mail
 from django.db import models, transaction
 from django.contrib.auth.models import User
 
 # Create your models here.
+from intelapp import utils
 
 
 class UserGroup(models.Model):
@@ -54,5 +56,33 @@ class RegistrationManager(object):
                 user.is_active = True
                 user.save()
                 return user
+        except Exception:
+            return None
+
+    @staticmethod
+    def send_activation_email(email, username, confirmation_code):
+        subject = 'Intelapp - activate account'
+        content = 'Hi, {0}! Visit the following URL to activate your account: '.format(username) + \
+                  '<server_name>/intel/register/confirm/{0}'.format(confirmation_code)
+        send_mail(subject,
+                  content,
+                  'intelprojectclient@gmail.com',
+                  [email],
+                  fail_silently=False)
+
+    @staticmethod
+    def create_inactive_user(username, email, password, group, device_id):
+        confirmation_code = utils.random_string(128)
+        hashed_code = hashlib.sha512(confirmation_code).hexdigest()
+        try:
+            with transaction.atomic():
+                new_user = User.objects.create_user(username, email, password)
+                new_user.is_active = False
+                new_user.save()
+                new_group, _ = UserGroup.objects.get_or_create(name=group)
+                UserProfile.objects.create(user=new_user, group=new_group, device_id=device_id,
+                                           confirmation_code_hash=hashed_code)
+                RegistrationManager.send_activation_email(email, username, confirmation_code)
+                return new_user
         except Exception:
             return None
