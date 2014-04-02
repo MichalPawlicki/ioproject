@@ -1,3 +1,4 @@
+import hashlib
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -12,7 +13,11 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     group = models.ForeignKey(UserGroup)
     device_id = models.CharField(max_length=16, null=True)
-    confirmation_code = models.CharField(max_length=128)
+    confirmation_code_hash = models.CharField(max_length=128)
+
+    @staticmethod
+    def hash_confirmation_code(code):
+        return hashlib.sha512(code).hexdigest()
 
 
 class FoeGroup(models.Model):
