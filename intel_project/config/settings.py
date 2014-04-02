@@ -93,3 +93,12 @@ STATIC_URL = '/static/'
 
 # User profile
 AUTH_PROFILE_MODULE = 'intelapp.UserProfile'
+
+
+# Mail server
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'intelprojectclient@gmail.com'
+EMAIL_HOST_PASSWORD = 'wacek123'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
