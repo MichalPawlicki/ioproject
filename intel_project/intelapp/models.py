@@ -1,5 +1,5 @@
 import hashlib
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -32,3 +32,27 @@ class FoeInfo(models.Model):
     strength = models.FloatField()
     submission_time = models.DateTimeField()
     submitted_by = models.ForeignKey(UserProfile)
+
+
+class RegistrationManager(object):
+    @staticmethod
+    def activate_user(confirmation_code):
+        code_hash = UserProfile.hash_confirmation_code(confirmation_code)
+        try:
+            user_profile = UserProfile.objects.get(confirmation_code_hash=code_hash)
+            return RegistrationManager._activate_profile(user_profile)
+        except UserProfile.DoesNotExist:
+            return None
+
+    @staticmethod
+    def _activate_profile(user_profile):
+        try:
+            with transaction.atomic():
+                user_profile.confirmation_code_hash = ''
+                user_profile.save()
+                user = user_profile.user
+                user.is_active = True
+                user.save()
+                return user
+        except Exception:
+            return None
