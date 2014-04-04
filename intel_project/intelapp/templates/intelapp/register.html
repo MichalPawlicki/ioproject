@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intelapp registration</title>
+</head>
+<body>
+    {{ message }}<br>
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register!">
+    </form>
+</body>
+</html>

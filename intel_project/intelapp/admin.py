@@ -5,6 +5,6 @@ import intelapp.models as models
 
 
 admin.site.register(models.UserGroup)
-admin.site.register(models.User)
+admin.site.register(models.UserProfile)
 admin.site.register(models.FoeGroup)
 admin.site.register(models.FoeInfo)

@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'intel_project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^intel/', include('intelapp.urls')),
+    url(r'^intel/', include('intelapp.urls', namespace='intelapp')),
     url(r'^admin/', include(admin.site.urls)),
 )
