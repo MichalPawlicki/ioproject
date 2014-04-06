@@ -13,6 +13,11 @@ from django.template import RequestContext, loader
 # Create your views here.
 from django.views.decorators.http import require_GET
 from django.views.generic import FormView
+
+#For main site, it will need to be a ListView to list current opponents
+from django.views.generic import ListView
+from intelapp.models import FoeInfo
+###
 from intelapp import utils
 from intelapp.forms import RegisterForm
 from intelapp.models import UserProfile, UserGroup, RegistrationManager
@@ -47,3 +52,10 @@ def confirm_registration(request, code):
         return HttpResponse('Error when activating user.')
     username = activated_user.username
     return HttpResponse('User "{0}" activated!'.format(username))
+
+class MainView(ListView):
+    template_name='intelapp/main.html'
+    
+    def get_queryset(self, ):
+        return 
+    

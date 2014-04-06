@@ -9,7 +9,7 @@ from intelapp import utils
 
 class UserGroup(models.Model):
     name = models.CharField(max_length=256, unique=True, blank=False)
-
+    current_foe = models.ForeignKey(FoeGroup)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
