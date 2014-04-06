@@ -15,7 +15,8 @@ from django.views.decorators.http import require_GET
 from django.views.generic import FormView
 from intelapp import utils
 from intelapp.forms import RegisterForm
-from intelapp.models import UserProfile, UserGroup, RegistrationManager
+from intelapp.models import UserProfile, UserGroup
+from intelapp.registration import RegistrationManager
 
 
 def index(request):
@@ -37,7 +38,8 @@ class RegisterView(FormView):
         email = form.cleaned_data['email']
         group = form.cleaned_data['group']
         device_id = form.cleaned_data['device_id']
-        RegistrationManager.create_inactive_user(username, email, password, group, device_id)
+        RegistrationManager.create_inactive_user(
+            username, email, password, group, device_id)
         return super(RegisterView, self).form_valid(form)
 
 
