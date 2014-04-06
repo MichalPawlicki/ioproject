@@ -27,13 +27,25 @@ class FoeGroup(models.Model):
 
 
 class FoeInfo(models.Model):
+    YES = 'Y'
+    PROBABLY = 'P'
+    NO = 'N'
+    IS_MILCH_COW_CHOICES = [
+        (YES, 'Is a milch cow'),
+        (PROBABLY, 'Probably a milch cow'),
+        (NO, 'Not a milch cow')
+    ]
+
     foe_group = models.ForeignKey(FoeGroup)
     name = models.CharField(max_length=1024, blank=False)
     comment = models.CharField(max_length=2048)
     level = models.IntegerField()
-    strength = models.FloatField()
+    defence_strength = models.FloatField()
+    is_milch_cow = models.CharField(max_length=1, choices=IS_MILCH_COW_CHOICES,
+                                    default=NO)
     submission_time = models.DateTimeField()
     submitted_by = models.ForeignKey(UserProfile)
+    published = models.BooleanField(default=False)
 
 
 class RegistrationManager(object):
@@ -41,7 +53,8 @@ class RegistrationManager(object):
     def activate_user(confirmation_code):
         code_hash = UserProfile.hash_confirmation_code(confirmation_code)
         try:
-            user_profile = UserProfile.objects.get(confirmation_code_hash=code_hash)
+            user_profile = UserProfile.objects.get(
+                confirmation_code_hash=code_hash)
             return RegistrationManager._activate_profile(user_profile)
         except UserProfile.DoesNotExist:
             return None
@@ -62,8 +75,10 @@ class RegistrationManager(object):
     @staticmethod
     def send_activation_email(email, username, confirmation_code):
         subject = 'Intelapp - activate account'
-        content = 'Hi, {0}! Visit the following URL to activate your account: '.format(username) + \
-                  '<server_name>/intel/register/confirm/{0}'.format(confirmation_code)
+        content = 'Hi, {0}! Visit the following URL to activate your account: '.format(
+            username) + \
+            '<server_name>/intel/register/confirm/{0}'.format(
+            confirmation_code)
         send_mail(subject,
                   content,
                   'intelprojectclient@gmail.com',
@@ -80,9 +95,11 @@ class RegistrationManager(object):
                 new_user.is_active = False
                 new_user.save()
                 new_group, _ = UserGroup.objects.get_or_create(name=group)
-                UserProfile.objects.create(user=new_user, group=new_group, device_id=device_id,
+                UserProfile.objects.create(user=new_user, group=new_group,
+                                           device_id=device_id,
                                            confirmation_code_hash=hashed_code)
-                RegistrationManager.send_activation_email(email, username, confirmation_code)
+                RegistrationManager.send_activation_email(email, username,
+                                                          confirmation_code)
                 return new_user
         except Exception:
             return None
