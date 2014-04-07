@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intelapp. Info submission.</title>
+</head>
+<body>
+    <h3>Submit info about your foe!</h3><br>
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit!">
+    </form>
+</body>
+</html>
