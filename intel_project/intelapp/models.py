@@ -1,4 +1,5 @@
 import hashlib
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -41,6 +42,21 @@ class FoeInfo(models.Model):
     defence_strength = models.FloatField()
     is_milch_cow = models.CharField(max_length=1, choices=IS_MILCH_COW_CHOICES,
                                     default=NO)
-    submission_time = models.DateTimeField()
+    submission_time = models.DateTimeField(default=datetime.datetime.now())
     submitted_by = models.ForeignKey(UserProfile)
     published = models.BooleanField(default=False)
+
+    @staticmethod
+    def get_newest_visible_info(foe_name, user):
+        matching_info = FoeInfo.objects.filter(name=foe_name)
+        if not matching_info:
+            return None
+        retriever_profile = user.get_profile()
+        retriever_group = retriever_profile.group
+        is_info_visible_predicate = lambda info:\
+            info.published or info.submitted_by.group == retriever_group
+        visible_info = filter(is_info_visible_predicate, matching_info)
+        if not visible_info:
+            return None
+        return sorted(visible_info, key=lambda info: info.submission_time,
+                      reverse=True)[0]
