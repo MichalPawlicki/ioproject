@@ -16,7 +16,7 @@ from django.views.generic import FormView
 
 #For main site, it will need to be a ListView to list current opponents
 from django.views.generic import ListView
-from intelapp.models import FoeInfo
+from intelapp.models import FoeInfo,FoeGroup
 ###
 from intelapp import utils
 from intelapp.forms import RegisterForm
@@ -53,9 +53,9 @@ def confirm_registration(request, code):
     username = activated_user.username
     return HttpResponse('User "{0}" activated!'.format(username))
 
-class MainView(ListView):
-    template_name='intelapp/main.html'
+
+def main(request):
     
-    def get_queryset(self, ):
-        return 
+    return render(request,'intelapp/main.html',context)
+
     
