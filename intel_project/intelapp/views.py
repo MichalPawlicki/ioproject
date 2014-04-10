@@ -1,6 +1,8 @@
 import hashlib
 import random
 import string
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import send_mail
 from django.db import transaction
 from django.http import HttpResponse
@@ -11,11 +13,14 @@ from django.shortcuts import render
 from django.template import RequestContext, loader
 
 # Create your views here.
+from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_GET
-from django.views.generic import FormView
+from django.views.generic import FormView, CreateView
 from intelapp import utils
-from intelapp.forms import RegisterForm
-from intelapp.models import UserProfile, UserGroup, RegistrationManager
+from intelapp.forms import RegisterForm, SubmitFoeInfoForm
+from intelapp.models import UserProfile, UserGroup, FoeInfo, FoeGroup
+from intelapp.registration import RegistrationManager
+from intelapp.utils import parse_float_with_coefficient
 
 
 def index(request):
@@ -37,7 +42,8 @@ class RegisterView(FormView):
         email = form.cleaned_data['email']
         group = form.cleaned_data['group']
         device_id = form.cleaned_data['device_id']
-        RegistrationManager.create_inactive_user(username, email, password, group, device_id)
+        RegistrationManager.create_inactive_user(
+            username, email, password, group, device_id)
         return super(RegisterView, self).form_valid(form)
 
 
@@ -47,3 +53,36 @@ def confirm_registration(request, code):
         return HttpResponse('Error when activating user.')
     username = activated_user.username
     return HttpResponse('User "{0}" activated!'.format(username))
+
+
+class SubmitFoeInfoView(FormView):
+    template_name = 'intelapp/submit_info.html'
+    form_class = SubmitFoeInfoForm
+    success_url = '/intel/'
+
+    def get_form_kwargs(self):
+        kwargs = super(SubmitFoeInfoView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(lambda user: user.is_active))
+    def dispatch(self, request, *args, **kwargs):
+        return super(SubmitFoeInfoView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        cleaned_data = form.cleaned_data
+        group, _ = FoeGroup.objects.get_or_create(name=cleaned_data['group'])
+        defence_strength = parse_float_with_coefficient(cleaned_data[
+            'defence_strength'])
+        user = self.request.user
+        FoeInfo.objects.create(
+            foe_group=group,
+            name=cleaned_data['name'],
+            comment=cleaned_data['comment'],
+            level=cleaned_data['level'],
+            defence_strength=defence_strength,
+            is_milch_cow=cleaned_data['is_milch_cow'],
+            submitted_by=user.get_profile()
+        )
+        return super(SubmitFoeInfoView, self).form_valid(form)
