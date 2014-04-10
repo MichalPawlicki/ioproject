@@ -1,15 +1,13 @@
 <html>
     <head>
-        <script src=’/media/jquery-1.10.2.min.js’ type="text/javascript"></script>
-        <script src=’/media/jqueryui/ui/jquery-ui.js’ type="text/javascript"></script>
-        <script src=’/media/jquery/jquery.cookie.js’ type="text/javascript"></script>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static "intelapp/jquery-ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.css" %}"/>
+        <script src="{% static "intelapp/jquery-ui-1.10.4/js/jquery-1.10.2.js" %}" type="text/javascript"></script>
+        <script src="{% static "intelapp/jquery-ui-1.10.4/js/jquery-ui-1.10.4.js" %}" type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $("div").css("border","3px solid red");
-            })
-            $(function() {
                 $("#tabs").tabs();
-            });
+            })
         </script>
     </head>    
 <body>

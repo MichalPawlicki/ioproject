@@ -7,9 +7,13 @@ from django.contrib.auth.models import User
 from intelapp import utils
 
 
+class FoeGroup(models.Model):
+    name = models.CharField(max_length=1024, unique=True, blank=False)
+    
 class UserGroup(models.Model):
     name = models.CharField(max_length=256, unique=True, blank=False)
-    #current_foe = models.ForeignKey(FoeGroup)
+    current_foe = models.ForeignKey(FoeGroup,null=True)
+    battle_ending = models.DateTimeField(null=True)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -20,10 +24,6 @@ class UserProfile(models.Model):
     @staticmethod
     def hash_confirmation_code(code):
         return hashlib.sha512(code).hexdigest()
-
-
-class FoeGroup(models.Model):
-    name = models.CharField(max_length=1024, unique=True, blank=False)
 
 
 class FoeInfo(models.Model):

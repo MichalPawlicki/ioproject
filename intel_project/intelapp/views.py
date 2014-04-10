@@ -55,7 +55,7 @@ def confirm_registration(request, code):
 
 
 def main(request):
-    
+    context={}
     return render(request,'intelapp/main.html',context)
 
     
