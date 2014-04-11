@@ -10,10 +10,17 @@ from intelapp import utils
 class FoeGroup(models.Model):
     name = models.CharField(max_length=1024, unique=True, blank=False)
     
+    def __unicode__(self):
+        return self.name
+    
 class UserGroup(models.Model):
     name = models.CharField(max_length=256, unique=True, blank=False)
     current_foe = models.ForeignKey(FoeGroup,null=True)
     battle_ending = models.DateTimeField(null=True)
+    
+    def __unicode__(self):
+        return self.name
+    
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -24,6 +31,10 @@ class UserProfile(models.Model):
     @staticmethod
     def hash_confirmation_code(code):
         return hashlib.sha512(code).hexdigest()
+    
+    def __unicode__(self):
+        return self.user.username
+    
 
 
 class FoeInfo(models.Model):
@@ -34,6 +45,10 @@ class FoeInfo(models.Model):
     strength = models.FloatField()
     submission_time = models.DateTimeField()
     submitted_by = models.ForeignKey(UserProfile)
+    
+    def __unicode__(self, ):
+        return self.name
+    
 
 
 class RegistrationManager(object):

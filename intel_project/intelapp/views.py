@@ -14,13 +14,10 @@ from django.template import RequestContext, loader
 from django.views.decorators.http import require_GET
 from django.views.generic import FormView
 
-#For main site, it will need to be a ListView to list current opponents
 from django.views.generic import ListView
-from intelapp.models import FoeInfo,FoeGroup
-###
 from intelapp import utils
 from intelapp.forms import RegisterForm
-from intelapp.models import UserProfile, UserGroup, RegistrationManager
+from intelapp.models import UserProfile, UserGroup, FoeGroup, FoeInfo, RegistrationManager
 
 
 def index(request):
@@ -55,7 +52,13 @@ def confirm_registration(request, code):
 
 
 def main(request):
-    context={}
+    user_id=request.REQUEST["id"]
+    user=UserProfile.objects.get(id=user_id)
+    group=UserGroup.objects.get(id=user.group.id)
+    #Foeinfo lines attached to certain FoeGroup can be retrieved by foeinfo_set
+    top_enemies=FoeGroup.objects.get(id=group.current_foe.id).foeinfo_set.all()[:10]
+    #context={}
+    context={ "user": user , "group": group , "top_enemies":top_enemies }
     return render(request,'intelapp/main.html',context)
 
     

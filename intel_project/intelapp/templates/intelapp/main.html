@@ -7,21 +7,33 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#tabs").tabs();
-            })
+            });
         </script>
     </head>    
 <body>
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">lider</a></li>
-            <li><a href="#tabs-2">gracz</a></li>
-            <li><a href="#tabs-3">oficer</a></li>
+            <li><a href="#tabs-1">Lider</a></li>
+            <li><a href="#tabs-2">Player</a></li>
+            <li><a href="#tabs-3">Officer</a></li>
         </ul>
         <div id="tabs-1">
             
         </div>
         <div id="tabs-2">
-            
+            <div id="war">
+                <p> Currently no war is being waged. </p>
+                {% comment %}
+                {% if %}
+                    <p> War is being waged against team: </p>
+                    <p> {{}} </p>
+                    <p> Time left: {{}} </p>
+                    <p> Your recommended tactic: {{}}</p>
+                {% else %}
+                    <p> Currently not war is being waged </p>
+                {% endif %}
+                {% endcomment %}
+            </div>
         </div>
         <div id="tabs-3">
             
