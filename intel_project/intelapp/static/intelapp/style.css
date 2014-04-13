@@ -1,0 +1,62 @@
+#tabs-2 {
+    width: 1200px;
+    height: 500px;
+    border: dashed red;
+}
+
+#general_info {
+    width: 900px;
+    height: 250px;
+    float:left;
+    border: solid black;
+}
+
+#war {
+    width: 300px;
+    height: 250px;
+    float:left;
+    border: dotted black;
+}
+
+#input {
+    width: 400px;
+    height: 250px;
+    float: left;
+    border: dashed black;
+}
+
+#enemies_info {
+    width: 800px;
+    height: 250px;
+    fload: left;
+    border: groove black;
+}
+
+.general_info_table {
+    width: 20%;
+    font-family: "Trebuchet MS",Arial,Helveti a,sans-serif;
+    border-collapse: collapse;
+    margin-right: 10px;
+}
+
+.general_info_table:first-of-type {
+    float:left;
+    margin-bottom: 10px;
+}
+
+.general_info_table > th,td {
+    border: 1px solid rgb(51,51,255);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);
+}
+
+#enemies_info > table {
+    border: thin solid red;
+    border-collapse: collapse;
+}
+
+#enemies_info > table > th,td {
+    padding: 3px 7px 2px 7px;
+    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+}
+
