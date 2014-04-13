@@ -1,47 +1,51 @@
 #tabs-2 {
     width: 1200px;
     height: 500px;
-    border: dashed red;
+    border: dashed blue;
 }
 
 #general_info {
-    width: 900px;
-    height: 250px;
+    width: 850px;
+    height: 200px;
     float:left;
-    border: solid black;
+    border: dashed blue;
 }
 
 #war {
     width: 300px;
-    height: 250px;
+    height: 200px;
     float:left;
-    border: dotted black;
+    border: dashed blue;
 }
 
 #input {
-    width: 400px;
-    height: 250px;
+    width: 350px;
+    height: 300px;
     float: left;
-    border: dashed black;
+    border: dashed blue;
 }
 
 #enemies_info {
     width: 800px;
-    height: 250px;
-    fload: left;
-    border: groove black;
+    height: 300px;
+    float: left;
+    border: dashed blue;
+}
+
+#enemies_info > table {
+    margin: 20px;
 }
 
 .general_info_table {
     width: 20%;
     font-family: "Trebuchet MS",Arial,Helveti a,sans-serif;
     border-collapse: collapse;
-    margin-right: 10px;
+    margin: 10px;
 }
 
 .general_info_table:first-of-type {
     float:left;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .general_info_table > th,td {
