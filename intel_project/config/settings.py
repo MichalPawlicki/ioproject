@@ -36,7 +36,7 @@ DEFAULT_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = ('south',)
 LOCAL_APPS = (
     'intelapp',
 )
@@ -58,9 +58,9 @@ WSGI_APPLICATION = 'intel_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-#import dbsettings
+import dbsettings
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': dbsettings.ENGINE,
         'NAME': dbsettings.NAME,
@@ -68,12 +68,6 @@ WSGI_APPLICATION = 'intel_project.wsgi.application'
         'PORT': dbsettings.PORT,
         'USER': dbsettings.USER,
         'PASSWORD': dbsettings.PASSWORD
-    }
-}'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

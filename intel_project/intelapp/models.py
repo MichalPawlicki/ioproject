@@ -17,7 +17,9 @@ class UserGroup(models.Model):
     name = models.CharField(max_length=256, unique=True, blank=False)
     current_foe = models.ForeignKey(FoeGroup,null=True)
     battle_ending = models.DateTimeField(null=True)
-    
+    #Null=True, in case a group doesn't have a leader
+    # 'string trick'
+    leader = models.ForeignKey('UserProfile',null=True)
     def __unicode__(self):
         return self.name
     
@@ -27,7 +29,7 @@ class UserProfile(models.Model):
     group = models.ForeignKey(UserGroup)
     device_id = models.CharField(max_length=16, null=True)
     confirmation_code_hash = models.CharField(max_length=128)
-
+    is_officer = models.BooleanField(default=True)
     @staticmethod
     def hash_confirmation_code(code):
         return hashlib.sha512(code).hexdigest()

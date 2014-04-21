@@ -1,40 +1,38 @@
 #tabs-2 {
     width: 1200px;
     height: 500px;
-    border: dashed blue;
+    border: solid orange;
 }
 
 #general_info {
-    width: 850px;
+    width: 750px;
     height: 200px;
     float:left;
-    border: dashed blue;
+    border: solid orange;
+    overflow: hidden;
 }
 
 #war {
-    width: 300px;
+    width: 400px;
     height: 200px;
     float:left;
-    border: dashed blue;
+    border: solid orange;
 }
 
 #input {
-    width: 350px;
+    width: 450px;
     height: 300px;
     float: left;
-    border: dashed blue;
+    border: solid orange;
 }
 
 #enemies_info {
-    width: 800px;
+    width: 700px;
     height: 300px;
     float: left;
-    border: dashed blue;
+    border: solid orange;
 }
 
-#enemies_info > table {
-    margin: 20px;
-}
 
 .general_info_table {
     width: 20%;
@@ -48,19 +46,38 @@
     margin-bottom: 5px;
 }
 
+
+#general_info > button {
+    float:left;
+    clear: left;
+    margin: 20px
+}
+
 .general_info_table > th,td {
     border: 1px solid rgb(51,51,255);
     padding: 3px 7px 2px 7px;
     background: rgb(245,186,111);
 }
 
-#enemies_info > table {
-    border: thin solid red;
-    border-collapse: collapse;
+.war_text {
+    text-align: center;
+    color: rgb(0,153,153);
 }
 
-#enemies_info > table > th,td {
+#enemies_info > table {
+    border-collapse: collapse;
+    margin:20px;
+}
+
+#enemies_info > table td {
+    border: 1px solid rgb(204,51,0);
     padding: 3px 7px 2px 7px;
-    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+    background: rgb(245,186,111);
+}
+
+#enemies_info > table th {
+      border: 1px solid rgb(204,51,0);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);  
 }
 

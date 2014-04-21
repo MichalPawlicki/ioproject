@@ -26,9 +26,11 @@
             <li><a href="#tabs-2">Player</a></li>
             <li><a href="#tabs-3">Officer</a></li>
         </ul>
+        <!--Leader mode -->
         <div id="tabs-1">
             
         </div>
+        <!-- Regular player mode -->
         <div id="tabs-2">
             <div id="general_info">
                 <table class="general_info_table">
@@ -45,7 +47,6 @@
                         <td></td>
                     </tr>
                 </table>
-                <button> Switch group </button>
                 <table class="general_info_table">
                     <tr>
                        <td>Group</td>
@@ -60,21 +61,22 @@
                         <td></td>
                     </tr>
                 </table>
+                <button> Switch group </button>
             </div>
             <div id="war">
-                {% comment %}
-                {% if group.current_foe!=None %}
-                    <p> War is being waged against team: </p>
-                    <p> {{group.current_foe}} </p>
-                    <p> Time left: {{group.battle_ending}} </p>
-                    <p> Your recommended tactic: {{}}</p>
+                <h3 class="war_text"> Info about current war </h3>
+                {% ifnotequal group.current_foe None  %}
+                    <p class="war_text"> War is being waged against team: </p>
+                    <p class="war_text"> {{group.current_foe}} </p>
+                    <p class="war_text"> Time left: {{group.battle_ending}} </p>
+                    <!-- For further consideration -->
+                    <p class="war_text"> Your recommended tactic: </p>
                 {% else %}
-                    <p> Currently not war is being waged </p>
-                {% endif %}
-                {% endcomment %}
+                    <p class="war_text"> Currently not war is being waged </p>
+                {% endifnotequal %}
             </div>
             <div id="input">
-                
+                <h3> Submit info about you opponent. </h3>
             </div>
             <div id="enemies_info">
                 <table>
@@ -84,6 +86,7 @@
                             <th>level</th>
                             <th>strength</th>
                             <th>comment</th>
+                            <th> cow? </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,12 +96,14 @@
                             <td>{{enemy.level}}</td>
                             <td>{{enemy.strength}}</td>
                             <td>{{enemy.comment}}</td>
+                            <td><img src="{% static "intelapp/cow_head.png" %}"/></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <!-- Officer mode -->
         <div id="tabs-3">
             
         </div>
