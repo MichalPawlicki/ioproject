@@ -1,3 +1,3 @@
-./intel_project/dbsettings.py
-./intel_project/dbsettings.pyc
-./intel_project/intelapp/migrations/
+intel_project/dbsettings.py
+intel_project/dbsettings.pyc
+intel_project/intelapp/migrations
