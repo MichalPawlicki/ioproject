@@ -56,9 +56,10 @@ def main(request):
     user=UserProfile.objects.get(id=user_id)
     group=UserGroup.objects.get(id=user.group.id)
     #Foeinfo lines attached to certain FoeGroup can be retrieved by foeinfo_set
-    top_enemies=FoeGroup.objects.get(id=group.current_foe.id).foeinfo_set.all()[:10]
+    top_enemies=FoeGroup.objects.get(id=group.current_foe.id).foeinfo_set.all()[:5]
+    group_members=UserProfile.objects.filter(group_id=user.group_id)
     #context={}
-    context={ "user": user , "group": group , "top_enemies":top_enemies }
+    context={ "user": user , "group": group , "top_enemies":top_enemies , "group_members":group_members }
     return render(request,'intelapp/main.html',context)
 
     

@@ -10,7 +10,14 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#tabs").tabs();
+                //tabs-1
+                $("#tabs-1  button").button();
+                //tabs-2
                 $("#enemies_info > table > tbody ").sortable().disableSelection();
+                $("#general_info > button").button();
+                $("#enemies_info > button").button();
+                //tabs-3
+                $("#tabs-3 > button").button();
             });
         </script>
     </head>
@@ -18,17 +25,40 @@
     -user - user which uses the panel
     -group - user's group
     -top enemies - list of top 10 enemies from group which user's group fights with
+    -group members - list of all users who belong to user's group
     -->
 <body>
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Lider</a></li>
+            <li><a href="#tabs-1">Leader</a></li>
             <li><a href="#tabs-2">Player</a></li>
             <li><a href="#tabs-3">Officer</a></li>
         </ul>
         <!--Leader mode -->
         <div id="tabs-1">
-            
+            <button>Disband a group</button>
+            <table>
+                <thead>
+                    <th>nick</th>
+                    <th>attack</th>
+                    <th>defense</th>
+                    <th>level</th>
+                    <th>officer?</th>
+                    <th>select new leader</th>
+                    <th>remove</th>
+                </thead>
+                <tbody>
+                    {% for member in group_members %}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{% static "intelapp/army_officer.png" %}" /></td>
+                        <td><button>make a leader</button></td>
+                        <td><button><img src="{% static "intelapp/delete.png" %}"/></button></td>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
         <!-- Regular player mode -->
         <div id="tabs-2">
@@ -40,7 +70,7 @@
                     </tr>
                     <tr>
                         <td>Defense power </td>
-                        <td>blablabla</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Attack power</td>
@@ -60,6 +90,7 @@
                         <td>Leader</td>
                         <td></td>
                     </tr>
+                    <!-- Possible place to display officers -->
                 </table>
                 <button> Switch group </button>
             </div>
@@ -101,11 +132,27 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <button> << </button>
+                <button> < </button>
+                <button> > </button>
+                <button> >> </button>
             </div>
         </div>
         <!-- Officer mode -->
         <div id="tabs-3">
-            
+            <button> Declare a war </button>
+            <table>
+                <thead>
+                    <th>nick</th>
+                    <th>attack</th>
+                    <th>defense</th>
+                    <th>level</th>
+                    <th>officer?</th>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
