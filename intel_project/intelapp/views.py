@@ -1,31 +1,16 @@
-import hashlib
-import random
-import string
-from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.core.mail import send_mail
-from django.db import transaction
 from django.http import HttpResponse
-from django.contrib.auth.models import User
-from django.http.response import Http404
 from django.shortcuts import render
-
-from django.template import RequestContext, loader
 
 # Create your views here.
 from django.utils.decorators import method_decorator
-from django.views.decorators.http import require_GET
-from django.views.generic import FormView, CreateView
 from django.views.generic import FormView
 
-from django.views.generic import ListView
-from intelapp import utils
-from intelapp.forms import RegisterForm, SubmitFoeInfoForm
-from intelapp.models import UserProfile, UserGroup, FoeInfo, FoeGroup
+from intelapp.forms import SubmitFoeInfoForm
 from intelapp.registration import RegistrationManager
 from intelapp.utils import parse_float_with_coefficient
 from intelapp.forms import RegisterForm
-from intelapp.models import UserProfile, UserGroup, FoeGroup, FoeInfo, RegistrationManager
+from intelapp.models import UserProfile, UserGroup, FoeGroup, FoeInfo
 
 
 def index(request):
@@ -90,18 +75,20 @@ class SubmitFoeInfoView(FormView):
             is_milch_cow=cleaned_data['is_milch_cow'],
             submitted_by=user.get_profile()
         )
-        return super(SubmitFoeInfoView, self).form_valid(form)    return HttpResponse('User "{0}" activated!'.format(username))
+        return super(SubmitFoeInfoView, self).form_valid(form)
 
 
 def main(request):
-    user_id=request.REQUEST["id"]
-    user=UserProfile.objects.get(id=user_id)
-    group=UserGroup.objects.get(id=user.group.id)
+    user_id = request.REQUEST["id"]
+    user = UserProfile.objects.get(id=user_id)
+    group = UserGroup.objects.get(id=user.group.id)
     #Foeinfo lines attached to certain FoeGroup can be retrieved by foeinfo_set
-    top_enemies=FoeGroup.objects.get(id=group.current_foe.id).foeinfo_set.all()[:5]
-    group_members=UserProfile.objects.filter(group_id=user.group_id)
+    top_enemies = FoeGroup.objects.get(
+        id=group.current_foe.id).foeinfo_set.all()[:5]
+    group_members = UserProfile.objects.filter(group_id=user.group_id)
     #context={}
-    context={ "user": user , "group": group , "top_enemies":top_enemies , "group_members":group_members }
-    return render(request,'intelapp/main.html',context)
+    context = {"user": user, "group": group, "top_enemies": top_enemies,
+               "group_members": group_members}
+    return render(request, 'intelapp/main.html', context)
 
     
