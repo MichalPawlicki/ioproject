@@ -1,0 +1,159 @@
+<html>
+    <head>
+        {% load staticfiles %}
+        <!-- stylesheets, jquery-ui and own -->
+        <link rel="stylesheet" href="{% static "intelapp/jquery-ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.css" %}"/>
+        <link rel="stylesheet" href="{% static "intelapp/style.css" %}"/>
+        <!-- javascript sources -->
+        <script src="{% static "intelapp/jquery-ui-1.10.4/js/jquery-1.10.2.js" %}" type="text/javascript"></script>
+        <script src="{% static "intelapp/jquery-ui-1.10.4/js/jquery-ui-1.10.4.js" %}" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#tabs").tabs();
+                //tabs-1
+                $("#tabs-1  button").button();
+                //tabs-2
+                $("#enemies_info > table > tbody ").sortable().disableSelection();
+                $("#general_info > button").button();
+                $("#enemies_info > button").button();
+                //tabs-3
+                $("#tabs-3 > button").button();
+            });
+        </script>
+    </head>
+    <!-- Variables passed to template:
+    -user - user which uses the panel
+    -group - user's group
+    -top enemies - list of top 10 enemies from group which user's group fights with
+    -group members - list of all users who belong to user's group
+    -->
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Leader</a></li>
+            <li><a href="#tabs-2">Player</a></li>
+            <li><a href="#tabs-3">Officer</a></li>
+        </ul>
+        <!--Leader mode -->
+        <div id="tabs-1">
+            <button>Disband a group</button>
+            <table>
+                <thead>
+                    <th>nick</th>
+                    <th>attack</th>
+                    <th>defense</th>
+                    <th>level</th>
+                    <th>officer?</th>
+                    <th>select new leader</th>
+                    <th>remove</th>
+                </thead>
+                <tbody>
+                    {% for member in group_members %}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{% static "intelapp/army_officer.png" %}" /></td>
+                        <td><button>make a leader</button></td>
+                        <td><button><img src="{% static "intelapp/delete.png" %}"/></button></td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Regular player mode -->
+        <div id="tabs-2">
+            <div id="general_info">
+                <table class="general_info_table">
+                    <tr>
+                        <td>User </td>
+                        <td>{{user}}</td>
+                    </tr>
+                    <tr>
+                        <td>Defense power </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Attack power</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <table class="general_info_table">
+                    <tr>
+                       <td>Group</td>
+                       <td>{{group.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Allies</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Leader</td>
+                        <td></td>
+                    </tr>
+                    <!-- Possible place to display officers -->
+                </table>
+                <button> Switch group </button>
+            </div>
+            <div id="war">
+                <h3 class="war_text"> Info about current war </h3>
+                {% ifnotequal group.current_foe None  %}
+                    <p class="war_text"> War is being waged against team: </p>
+                    <p class="war_text"> {{group.current_foe}} </p>
+                    <p class="war_text"> Time left: {{group.battle_ending}} </p>
+                    <!-- For further consideration -->
+                    <p class="war_text"> Your recommended tactic: </p>
+                {% else %}
+                    <p class="war_text"> Currently not war is being waged </p>
+                {% endifnotequal %}
+            </div>
+            <div id="input">
+                <h3> Submit info about you opponent. </h3>
+            </div>
+            <div id="enemies_info">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>name</th>
+                            <th>level</th>
+                            <th>strength</th>
+                            <th>comment</th>
+                            <th> cow? </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for enemy in top_enemies %}
+                        <tr>
+                            <td>{{enemy.name}}</td>
+                            <td>{{enemy.level}}</td>
+                            <td>{{enemy.strength}}</td>
+                            <td>{{enemy.comment}}</td>
+                            <td><img src="{% static "intelapp/cow_head.png" %}"/></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <button> << </button>
+                <button> < </button>
+                <button> > </button>
+                <button> >> </button>
+            </div>
+        </div>
+        <!-- Officer mode -->
+        <div id="tabs-3">
+            <button> Declare a war </button>
+            <table>
+                <thead>
+                    <th>nick</th>
+                    <th>attack</th>
+                    <th>defense</th>
+                    <th>level</th>
+                    <th>officer?</th>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

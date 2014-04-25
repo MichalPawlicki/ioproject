@@ -6,23 +6,36 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
+class FoeGroup(models.Model):
+    name = models.CharField(max_length=1024, unique=True, blank=False)
+    
+    def __unicode__(self):
+        return self.name
+    
 class UserGroup(models.Model):
     name = models.CharField(max_length=256, unique=True, blank=False)
-
+    current_foe = models.ForeignKey(FoeGroup,null=True)
+    battle_ending = models.DateTimeField(null=True)
+    #Null=True, in case a group doesn't have a leader
+    # 'string trick'
+    leader = models.ForeignKey('UserProfile',null=True)
+    def __unicode__(self):
+        return self.name
+    
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     group = models.ForeignKey(UserGroup)
     device_id = models.CharField(max_length=16, null=True)
     confirmation_code_hash = models.CharField(max_length=128)
-
+    is_officer = models.BooleanField(default=True)
     @staticmethod
     def hash_confirmation_code(code):
         return hashlib.sha512(code).hexdigest()
-
-
-class FoeGroup(models.Model):
-    name = models.CharField(max_length=1024, unique=True, blank=False)
+    
+    def __unicode__(self):
+        return self.user.username
+    
 
 
 class FoeInfo(models.Model):
@@ -44,6 +57,10 @@ class FoeInfo(models.Model):
                                     default=NO)
     submission_time = models.DateTimeField(default=datetime.datetime.now())
     submitted_by = models.ForeignKey(UserProfile)
+    
+    def __unicode__(self, ):
+        return self.name
+    
     published = models.BooleanField(default=False)
 
     @staticmethod

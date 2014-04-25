@@ -1,0 +1,144 @@
+/* styles for tabs-1 */
+
+#tabs-1 {
+    width: 1200px;
+    
+}
+
+#tabs-1 > table {
+    border-collapse: collapse;
+    margin:20px;
+}
+
+#tabs-1 > table td {
+    border: 1px solid rgb(204,51,0);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);
+}
+
+#tabs-1 > table th {
+    font-size: 20;
+      border: 1px solid rgb(204,51,0);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);  
+}
+
+/* styles for tabs-2 */
+
+#tabs-2 {
+    width: 1200px;
+    height: 550px;
+    border: solid orange;
+}
+
+#general_info {
+    width: 750px;
+    height: 200px;
+    float:left;
+    border: solid orange;
+    overflow: hidden;
+}
+
+#war {
+    width: 400px;
+    height: 200px;
+    float:left;
+    border: solid orange;
+}
+
+#input {
+    width: 450px;
+    height: 350px;
+    float: left;
+    border: solid orange;
+}
+
+#enemies_info {
+    width: 700px;
+    height: 350px;
+    float: left;
+    border: solid orange;
+}
+
+
+.general_info_table {
+    width: 20%;
+    font-family: "Trebuchet MS",Arial,Helveti a,sans-serif;
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+.general_info_table:first-of-type {
+    float:left;
+    margin-bottom: 5px;
+}
+
+
+#general_info > button {
+    float:left;
+    clear: left;
+    margin: 20px
+}
+
+.general_info_table > th,td {
+    border: 1px solid rgb(51,51,255);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);
+}
+
+.war_text {
+    text-align: center;
+    color: rgb(0,153,153);
+}
+
+#input > h3 {
+    text-align: center;
+}
+
+#enemies_info > table {
+    border-collapse: collapse;
+    margin:20px;
+    float: left;
+}
+
+#enemies_info > table td {
+    border: 1px solid rgb(204,51,0);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);
+}
+
+#enemies_info > table th {
+      border: 1px solid rgb(204,51,0);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);  
+}
+
+#enemies_info > button {
+    margin-top: 20px;
+    float: left;
+}
+/* styles for tabs-3 */
+
+#tabs-3 > button {
+    float: left;
+    margin-top: 50px;
+    margin-right: 20px;
+}
+
+#tabs-3 > table {
+    border-collapse: collapse;
+    margin:20px;
+}
+
+#tabs-3 > table td {
+    border: 1px solid rgb(204,51,0);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);
+}
+
+#tabs-3 > table th {
+    font-size: 20;
+    border: 1px solid rgb(204,51,0);
+    padding: 3px 7px 2px 7px;
+    background: rgb(245,186,111);  
+}

@@ -36,7 +36,7 @@ DEFAULT_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = ('south',)
 LOCAL_APPS = (
     'intelapp',
 )

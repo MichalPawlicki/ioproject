@@ -14,5 +14,6 @@ urlpatterns = patterns(
         name='confirm_registration'),
     url(r'^submit_info/?$', SubmitFoeInfoView.as_view(),
         name='submit_info')
+    url(r'^main$', views.main, name='main')
 )
 
